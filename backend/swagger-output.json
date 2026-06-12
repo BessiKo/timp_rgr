@@ -2,25 +2,22 @@
   "openapi": "3.0.0",
   "info": {
     "title": "SCADA API",
-    "description": "API Documentation",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "description": ""
   },
   "servers": [
     {
-      "url": "https://energy-secure-system.duckdns.org",
-      "description": "Production"
+      "url": "https://energy-secure-system.duckdns.org:8443",
+      "description": "Production (Nginx)"
     },
     {
       "url": "http://localhost:3001",
-      "description": "Local"
+      "description": "Local Backend"
     }
   ],
   "paths": {
     "/health": {
       "get": {
-        "tags": [
-          "System"
-        ],
         "description": "",
         "responses": {
           "200": {
