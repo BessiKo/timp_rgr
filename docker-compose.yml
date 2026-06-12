@@ -43,7 +43,6 @@ services:
     depends_on:
       - backend
 
-  # === Изолированные симуляторы котлов ===
   boiler-1:
     build: ./boiler
     container_name: boiler-node-1
@@ -71,3 +70,5 @@ services:
 
 volumes:
   pgdata:
+    external: true
+    name: user1_pgdata
