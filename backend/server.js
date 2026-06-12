@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const swaggerUi = require('swagger-ui-express')
 const apiRoutes = require('./routes/api')
 const pool = require('./config/db')
+const ApiError = require('./utils/ApiError')
 
 let swaggerDocument
 try {
@@ -33,16 +34,24 @@ if (swaggerDocument) {
 
 app.use('/api', apiRoutes)
 
-app.get('/health', async (req, res) => {
+app.get('/health', async (req, res, next) => {
+  /*
+    #swagger.tags = ['System']
+    #swagger.responses[200] = { $ref: '#/components/responses/SuccessOK' }
+    #swagger.responses[500] = { $ref: '#/components/responses/InternalServerError' }
+  */
   try {
     await pool.query('SELECT NOW()')
     res.json({ status: 'healthy', database: 'connected', timestamp: new Date() })
   } catch (err) {
-    res.status(500).json({ status: 'unhealthy', database: err.message })
+    next(err)
   }
 })
 
 app.use((err, req, res, next) => {
+  if (err instanceof ApiError) {
+    return res.status(err.status).json({ error: err.message })
+  }
   res.status(500).json({ error: 'Internal Server Error' })
 })
 
