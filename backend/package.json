@@ -17,7 +17,9 @@
     "jsonwebtoken": "^9.0.2",
     "nodemailer": "^6.9.13",
     "pg": "^8.11.5",
-    "speakeasy": "^2.0.0"
+    "speakeasy": "^2.0.0",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "eslint": "^8.57.1",
