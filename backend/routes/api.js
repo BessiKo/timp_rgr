@@ -1,0 +1,48 @@
+const express = require('express')
+const router = express.Router()
+const authController = require('../controllers/authController')
+const boilerController = require('../controllers/boilerController')
+const adminController = require('../controllers/adminController')
+const mailController = require('../controllers/mailController')
+const { verifyToken, checkRole } = require('../middleware/auth')
+
+router.post('/auth/register', authController.register)
+router.post('/auth/login', authController.login)
+router.post('/auth/verify-mfa', authController.verifyMfa)
+router.get('/auth/me', verifyToken, authController.me)
+router.post('/auth/logout', verifyToken, authController.logout)
+router.post('/auth/mfa/setup', verifyToken, authController.setupMfa)
+router.post('/auth/mfa/enable', verifyToken, authController.enableMfa)
+router.post('/auth/mfa/disable', verifyToken, authController.disableMfa)
+router.post('/auth/change-password', verifyToken, authController.changePassword)
+
+router.post('/messages', verifyToken, mailController.sendMessage)
+router.get('/messages/inbox', verifyToken, mailController.getInbox)
+router.get('/messages/sent', verifyToken, mailController.getSent)
+router.get('/messages/:id', verifyToken, mailController.getMessageById)
+
+router.get('/boilers/deleted', verifyToken, checkRole(['admin', 'chief']), boilerController.getDeletedBoilers)
+router.put('/boilers/:id/restore', verifyToken, checkRole(['admin', 'chief']), boilerController.restoreBoiler)
+router.get('/boilers', verifyToken, boilerController.getBoilers)
+router.post('/boilers', verifyToken, checkRole(['admin', 'chief']), boilerController.createBoiler)
+router.put('/boilers/:id', verifyToken, boilerController.updateBoiler)
+router.put('/boilers/:id/status', verifyToken, boilerController.updateBoiler)
+router.delete('/boilers/:id', verifyToken, checkRole(['admin', 'chief']), boilerController.deleteBoiler)
+
+router.get('/assignments', verifyToken, boilerController.getAssignments)
+router.post('/assignments', verifyToken, checkRole(['admin', 'chief']), boilerController.assignOperator)
+router.delete('/assignments/:id', verifyToken, checkRole(['admin', 'chief']), boilerController.removeAssignment)
+
+router.get('/stop-requests', verifyToken, boilerController.getStopRequests)
+router.post('/stop-requests', verifyToken, boilerController.createStopRequest)
+router.delete('/stop-requests/:id', verifyToken, checkRole(['admin', 'chief']), boilerController.deleteStopRequest)
+
+router.get('/admin/users', verifyToken, checkRole(['admin', 'chief']), adminController.getUsers)
+router.get('/admin/users/deleted', verifyToken, checkRole(['admin', 'chief']), adminController.getDeletedUsers)
+router.get('/contacts', verifyToken, adminController.getContacts)
+router.put('/admin/users/:id/restore', verifyToken, checkRole(['admin']), adminController.restoreUser)
+router.put('/admin/users/:id', verifyToken, checkRole(['admin']), adminController.updateUserFields)
+router.delete('/admin/users/:id', verifyToken, checkRole(['admin']), adminController.deleteUser)
+router.get('/admin/logs', verifyToken, checkRole(['admin']), adminController.getLogs)
+
+module.exports = router

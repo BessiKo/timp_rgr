@@ -1,0 +1,73 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: scada_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: scada_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  mailserver:
+    image: axllent/mailpit
+    container_name: scada_mail
+    restart: always
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+  backend:
+    build: ./backend
+    container_name: scada_backend
+    restart: always
+    environment:
+      - PORT=3001
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/scada_db
+      - JWT_SECRET=my_super_secret_key_for_scada
+      - MAIL_HOST=mailserver
+      - MAIL_API_URL=http://mailserver:8025
+    depends_on:
+      - db
+      - mailserver
+
+  nginx:
+    build: ./frontend
+    container_name: scada_nginx
+    restart: always
+    ports:
+      - "8443:8443"
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    depends_on:
+      - backend
+
+  # === Изолированные симуляторы котлов ===
+  boiler-1:
+    build: ./boiler
+    container_name: boiler-node-1
+    restart: unless-stopped
+
+  boiler-2:
+    build: ./boiler
+    container_name: boiler-node-2
+    restart: unless-stopped
+
+  boiler-3:
+    build: ./boiler
+    container_name: boiler-node-3
+    restart: unless-stopped
+
+  boiler-4:
+    build: ./boiler
+    container_name: boiler-node-4
+    restart: unless-stopped
+
+  boiler-5:
+    build: ./boiler
+    container_name: boiler-node-5
+    restart: unless-stopped
+
+volumes:
+  pgdata:
