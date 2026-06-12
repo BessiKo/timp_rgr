@@ -61,4 +61,4 @@ const doc = {
   security: [{ bearerAuth: [] }]
 }
 
-swaggerAutogen('./swagger-output.json', ['./server.js', './routes/api.js'], doc)
+swaggerAutogen('./swagger-output.json', ['./server.js'], doc)
