@@ -8,11 +8,7 @@
   "servers": [
     {
       "url": "https://energy-secure-system.duckdns.org:8443",
-      "description": "Production (Nginx)"
-    },
-    {
-      "url": "http://localhost:3001",
-      "description": "Local Backend"
+      "description": "Production"
     }
   ],
   "paths": {
@@ -31,16 +27,46 @@
     },
     "/api/auth/register": {
       "post": {
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Created",
+            "$ref": "#/components/responses/SuccessCreated"
           },
           "400": {
+            "$ref": "#/components/responses/BadRequest",
             "description": "Bad Request"
           },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized",
+            "description": "Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden",
+            "description": "Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         },
         "requestBody": {
@@ -64,6 +90,9 @@
     },
     "/api/auth/login": {
       "post": {
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "parameters": [
           {
@@ -76,13 +105,40 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
           },
           "400": {
+            "$ref": "#/components/responses/BadRequest",
             "description": "Bad Request"
           },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized",
+            "description": "Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden",
+            "description": "Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         },
         "requestBody": {
@@ -106,6 +162,9 @@
     },
     "/api/auth/verify-mfa": {
       "post": {
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "parameters": [
           {
@@ -118,13 +177,40 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
           },
           "400": {
+            "$ref": "#/components/responses/BadRequest",
             "description": "Bad Request"
           },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized",
+            "description": "Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden",
+            "description": "Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         },
         "requestBody": {
@@ -148,6 +234,9 @@
     },
     "/api/auth/me": {
       "get": {
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "parameters": [
           {
@@ -160,25 +249,49 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
           },
           "404": {
+            "$ref": "#/components/responses/NotFound",
             "description": "Not Found"
           },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         }
       }
     },
     "/api/auth/logout": {
       "post": {
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "parameters": [
           {
@@ -198,19 +311,49 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         }
       }
     },
     "/api/auth/mfa/setup": {
       "post": {
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "parameters": [
           {
@@ -223,28 +366,49 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
           },
           "400": {
+            "$ref": "#/components/responses/BadRequest",
             "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
           },
           "404": {
+            "$ref": "#/components/responses/NotFound",
             "description": "Not Found"
           },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         }
       }
     },
     "/api/auth/mfa/enable": {
       "post": {
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "parameters": [
           {
@@ -264,22 +428,40 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
           },
           "400": {
+            "$ref": "#/components/responses/BadRequest",
             "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
           },
           "404": {
+            "$ref": "#/components/responses/NotFound",
             "description": "Not Found"
           },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         },
         "requestBody": {
@@ -300,6 +482,9 @@
     },
     "/api/auth/mfa/disable": {
       "post": {
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "parameters": [
           {
@@ -319,28 +504,49 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
           },
           "400": {
+            "$ref": "#/components/responses/BadRequest",
             "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
           },
           "404": {
+            "$ref": "#/components/responses/NotFound",
             "description": "Not Found"
           },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         }
       }
     },
     "/api/auth/change-password": {
       "post": {
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "parameters": [
           {
@@ -360,22 +566,40 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
           },
           "400": {
+            "$ref": "#/components/responses/BadRequest",
             "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
           },
           "404": {
+            "$ref": "#/components/responses/NotFound",
             "description": "Not Found"
           },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         },
         "requestBody": {
@@ -399,6 +623,9 @@
     },
     "/api/messages": {
       "post": {
+        "tags": [
+          "Mail"
+        ],
         "description": "",
         "parameters": [
           {
@@ -411,22 +638,40 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
           },
           "400": {
+            "$ref": "#/components/responses/BadRequest",
             "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
           },
           "404": {
+            "$ref": "#/components/responses/NotFound",
             "description": "Not Found"
           },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         },
         "requestBody": {
@@ -453,6 +698,9 @@
     },
     "/api/messages/inbox": {
       "get": {
+        "tags": [
+          "Mail"
+        ],
         "description": "",
         "parameters": [
           {
@@ -465,22 +713,49 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
           },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         }
       }
     },
     "/api/messages/sent": {
       "get": {
+        "tags": [
+          "Mail"
+        ],
         "description": "",
         "parameters": [
           {
@@ -493,22 +768,49 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
           },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         }
       }
     },
     "/api/messages/{id}": {
       "get": {
+        "tags": [
+          "Mail"
+        ],
         "description": "",
         "parameters": [
           {
@@ -529,22 +831,49 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
           },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         }
       }
     },
     "/api/boilers/deleted": {
       "get": {
+        "tags": [
+          "Boilers"
+        ],
         "description": "",
         "parameters": [
           {
@@ -557,22 +886,49 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
           },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         }
       }
     },
     "/api/boilers/{id}/restore": {
       "put": {
+        "tags": [
+          "Boilers"
+        ],
         "description": "",
         "parameters": [
           {
@@ -593,22 +949,49 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
           },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         }
       }
     },
     "/api/boilers": {
       "get": {
+        "tags": [
+          "Boilers"
+        ],
         "description": "",
         "parameters": [
           {
@@ -621,20 +1004,47 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
           },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         }
       },
       "post": {
+        "tags": [
+          "Boilers"
+        ],
         "description": "",
         "parameters": [
           {
@@ -647,16 +1057,40 @@
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Created",
+            "$ref": "#/components/responses/SuccessCreated"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
           },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         },
         "requestBody": {
@@ -686,6 +1120,9 @@
     },
     "/api/boilers/{id}": {
       "put": {
+        "tags": [
+          "Boilers"
+        ],
         "description": "",
         "parameters": [
           {
@@ -706,16 +1143,40 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
           },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         },
         "requestBody": {
@@ -746,6 +1207,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Boilers"
+        ],
         "description": "",
         "parameters": [
           {
@@ -766,22 +1230,49 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
           },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         }
       }
     },
     "/api/boilers/{id}/status": {
       "put": {
+        "tags": [
+          "Boilers"
+        ],
         "description": "",
         "parameters": [
           {
@@ -802,16 +1293,40 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
           },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         },
         "requestBody": {
@@ -844,6 +1359,9 @@
     },
     "/api/assignments": {
       "get": {
+        "tags": [
+          "Assignments"
+        ],
         "description": "",
         "parameters": [
           {
@@ -856,20 +1374,47 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
           },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         }
       },
       "post": {
+        "tags": [
+          "Assignments"
+        ],
         "description": "",
         "parameters": [
           {
@@ -882,16 +1427,40 @@
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Created",
+            "$ref": "#/components/responses/SuccessCreated"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
           },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         },
         "requestBody": {
@@ -915,6 +1484,9 @@
     },
     "/api/assignments/{id}": {
       "delete": {
+        "tags": [
+          "Assignments"
+        ],
         "description": "",
         "parameters": [
           {
@@ -935,22 +1507,49 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
           },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         }
       }
     },
     "/api/stop-requests": {
       "get": {
+        "tags": [
+          "Stop Requests"
+        ],
         "description": "",
         "parameters": [
           {
@@ -963,20 +1562,47 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
           },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         }
       },
       "post": {
+        "tags": [
+          "Stop Requests"
+        ],
         "description": "",
         "parameters": [
           {
@@ -989,16 +1615,40 @@
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Created",
+            "$ref": "#/components/responses/SuccessCreated"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
           },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         },
         "requestBody": {
@@ -1022,6 +1672,9 @@
     },
     "/api/stop-requests/{id}": {
       "delete": {
+        "tags": [
+          "Stop Requests"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1042,22 +1695,49 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
           },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         }
       }
     },
     "/api/admin/users": {
       "get": {
+        "tags": [
+          "Admin"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1070,22 +1750,49 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
           },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         }
       }
     },
     "/api/admin/users/deleted": {
       "get": {
+        "tags": [
+          "Admin"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1098,22 +1805,49 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
           },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         }
       }
     },
     "/api/contacts": {
       "get": {
+        "tags": [
+          "Admin"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1126,22 +1860,49 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
           },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         }
       }
     },
     "/api/admin/users/{id}/restore": {
       "put": {
+        "tags": [
+          "Admin"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1162,22 +1923,49 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
           },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         }
       }
     },
     "/api/admin/users/{id}": {
       "put": {
+        "tags": [
+          "Admin"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1198,16 +1986,40 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
           },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         },
         "requestBody": {
@@ -1229,6 +2041,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Admin"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1249,22 +2064,49 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
           },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         }
       }
     },
     "/api/admin/logs": {
       "get": {
+        "tags": [
+          "Admin"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1284,16 +2126,2179 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
           },
           "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "$ref": "#/components/responses/SuccessCreated"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized",
             "description": "Unauthorized"
           },
           "403": {
+            "$ref": "#/components/responses/Forbidden",
             "description": "Forbidden"
           },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
           "500": {
+            "$ref": "#/components/responses/InternalServerError",
             "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "user-agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized",
+            "description": "Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden",
+            "description": "Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/verify-mfa": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "user-agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized",
+            "description": "Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden",
+            "description": "Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "example": "any"
+                  },
+                  "code": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user-agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/auth/mfa/setup": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/auth/mfa/enable": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user-agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/mfa/disable": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user-agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/auth/change-password": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user-agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "oldPassword": {
+                    "example": "any"
+                  },
+                  "newPassword": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/messages": {
+      "post": {
+        "tags": [
+          "Mail"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "recipientId": {
+                    "example": "any"
+                  },
+                  "subject": {
+                    "example": "any"
+                  },
+                  "body": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/messages/inbox": {
+      "get": {
+        "tags": [
+          "Mail"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/messages/sent": {
+      "get": {
+        "tags": [
+          "Mail"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/messages/{id}": {
+      "get": {
+        "tags": [
+          "Mail"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/boilers/deleted": {
+      "get": {
+        "tags": [
+          "Boilers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/boilers/{id}/restore": {
+      "put": {
+        "tags": [
+          "Boilers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/boilers": {
+      "get": {
+        "tags": [
+          "Boilers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Boilers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "$ref": "#/components/responses/SuccessCreated"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "example": "any"
+                  },
+                  "type": {
+                    "example": "any"
+                  },
+                  "max_pressure": {
+                    "example": "any"
+                  },
+                  "network_address": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/boilers/{id}": {
+      "put": {
+        "tags": [
+          "Boilers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "example": "any"
+                  },
+                  "type": {
+                    "example": "any"
+                  },
+                  "max_pressure": {
+                    "example": "any"
+                  },
+                  "network_address": {
+                    "example": "any"
+                  },
+                  "is_blocked": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Boilers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/boilers/{id}/status": {
+      "put": {
+        "tags": [
+          "Boilers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "example": "any"
+                  },
+                  "type": {
+                    "example": "any"
+                  },
+                  "max_pressure": {
+                    "example": "any"
+                  },
+                  "network_address": {
+                    "example": "any"
+                  },
+                  "is_blocked": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/assignments": {
+      "get": {
+        "tags": [
+          "Assignments"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Assignments"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "$ref": "#/components/responses/SuccessCreated"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "operator_id": {
+                    "example": "any"
+                  },
+                  "boiler_id": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/assignments/{id}": {
+      "delete": {
+        "tags": [
+          "Assignments"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/stop-requests": {
+      "get": {
+        "tags": [
+          "Stop Requests"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Stop Requests"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "$ref": "#/components/responses/SuccessCreated"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "boilerId": {
+                    "example": "any"
+                  },
+                  "reason": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stop-requests/{id}": {
+      "delete": {
+        "tags": [
+          "Stop Requests"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/admin/users": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/admin/users/deleted": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/contacts": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/admin/users/{id}/restore": {
+      "put": {
+        "tags": [
+          "Admin"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/admin/users/{id}": {
+      "put": {
+        "tags": [
+          "Admin"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "role": {
+                    "example": "any"
+                  },
+                  "email": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Admin"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/admin/logs": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "$ref": "#/components/responses/SuccessOK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests",
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError",
+            "description": "Internal Server Error"
+          },
+          "502": {
+            "$ref": "#/components/responses/BadGateway",
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable",
+            "description": "Service Unavailable"
           }
         }
       }
@@ -1305,6 +4310,142 @@
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT"
+      }
+    },
+    "responses": {
+      "SuccessOK": {
+        "description": "Успешное выполнение (Код 200)"
+      },
+      "SuccessCreated": {
+        "description": "Успешно создано (Код 201)"
+      },
+      "BadRequest": {
+        "description": "Неверный синтаксис (Код 400)",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Сервер не понял запрос"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Unauthorized": {
+        "description": "Необходима аутентификация (Код 401)",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Необходима аутентификация"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Forbidden": {
+        "description": "Доступ запрещен (Код 403)",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Доступ запрещен"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Запрашиваемый ресурс не найден (Код 404)",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Ресурс не найден"
+                }
+              }
+            }
+          }
+        }
+      },
+      "TooManyRequests": {
+        "description": "Превышен лимит запросов (Код 429)",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Превышен лимит запросов"
+                }
+              }
+            }
+          }
+        }
+      },
+      "InternalServerError": {
+        "description": "Внутренняя ошибка сервера (Код 500)",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Внутренняя ошибка сервера"
+                }
+              }
+            }
+          }
+        }
+      },
+      "BadGateway": {
+        "description": "Шлюз получил некорректный ответ (Код 502)",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Устройство недоступно"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ServiceUnavailable": {
+        "description": "Сервер временно недоступен (Код 503)",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Сервер на обслуживании"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },

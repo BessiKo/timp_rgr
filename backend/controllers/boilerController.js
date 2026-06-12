@@ -1,160 +1,262 @@
 const pool = require('../config/db')
+const ApiError = require('../utils/ApiError')
 
-exports.getBoilers = async (req, res) => {
+exports.getBoilers = async (req, res, next) => {
+  /*
+    #swagger.tags = ['Boilers']
+    #swagger.responses[200] = { $ref: '#/components/responses/SuccessOK' }
+    #swagger.responses[400] = { $ref: '#/components/responses/BadRequest' }
+    #swagger.responses[401] = { $ref: '#/components/responses/Unauthorized' }
+    #swagger.responses[403] = { $ref: '#/components/responses/Forbidden' }
+    #swagger.responses[404] = { $ref: '#/components/responses/NotFound' }
+    #swagger.responses[429] = { $ref: '#/components/responses/TooManyRequests' }
+    #swagger.responses[500] = { $ref: '#/components/responses/InternalServerError' }
+    #swagger.responses[502] = { $ref: '#/components/responses/BadGateway' }
+    #swagger.responses[503] = { $ref: '#/components/responses/ServiceUnavailable' }
+  */
   try {
     if (req.user.role === 'chief' || req.user.role === 'admin') {
       const result = await pool.query(`
         SELECT b.*,
-        COALESCE(
-          json_agg(
-            json_build_object('id', p.id, 'email', p.email)
-          ) FILTER (WHERE p.id IS NOT NULL),
-          '[]'
-        ) as operators
+        COALESCE(json_agg(json_build_object('id', p.id, 'email', p.email)) FILTER (WHERE p.id IS NOT NULL), '[]') as operators
         FROM boilers b
         LEFT JOIN operator_assignments oa ON b.id = oa.boiler_id
         LEFT JOIN profiles p ON oa.operator_id = p.id
         WHERE b.is_deleted = FALSE
-        GROUP BY b.id
-        ORDER BY b.id ASC
+        GROUP BY b.id ORDER BY b.id ASC
       `)
       return res.json(result.rows)
     } else {
       const result = await pool.query(`
-        SELECT b.*
-        FROM boilers b
+        SELECT b.* FROM boilers b
         JOIN operator_assignments oa ON b.id = oa.boiler_id
-        WHERE oa.operator_id = $1 AND b.is_deleted = FALSE
-        ORDER BY b.id ASC
+        WHERE oa.operator_id = $1 AND b.is_deleted = FALSE ORDER BY b.id ASC
       `, [req.user.id])
       return res.json(result.rows)
     }
-  } catch (err) {
-    res.status(500).json({ error: err.message })
-  }
+  } catch (err) { next(err) }
 }
 
-exports.createBoiler = async (req, res) => {
-  const { name, type, max_pressure, network_address } = req.body
+exports.createBoiler = async (req, res, next) => {
+  /*
+    #swagger.tags = ['Boilers']
+    #swagger.responses[201] = { $ref: '#/components/responses/SuccessCreated' }
+    #swagger.responses[400] = { $ref: '#/components/responses/BadRequest' }
+    #swagger.responses[401] = { $ref: '#/components/responses/Unauthorized' }
+    #swagger.responses[403] = { $ref: '#/components/responses/Forbidden' }
+    #swagger.responses[404] = { $ref: '#/components/responses/NotFound' }
+    #swagger.responses[429] = { $ref: '#/components/responses/TooManyRequests' }
+    #swagger.responses[500] = { $ref: '#/components/responses/InternalServerError' }
+    #swagger.responses[502] = { $ref: '#/components/responses/BadGateway' }
+    #swagger.responses[503] = { $ref: '#/components/responses/ServiceUnavailable' }
+  */
   try {
-    const result = await pool.query(
-      'INSERT INTO boilers (name, type, max_pressure, network_address) VALUES ($1, $2, $3, $4) RETURNING *',
-      [name, type, max_pressure, network_address]
-    )
+    const { name, type, max_pressure, network_address } = req.body
+    const result = await pool.query('INSERT INTO boilers (name, type, max_pressure, network_address) VALUES ($1, $2, $3, $4) RETURNING *', [name, type, max_pressure, network_address])
     res.status(201).json(result.rows[0])
-  } catch (err) {
-    res.status(500).json({ error: err.message })
-  }
+  } catch (err) { next(err) }
 }
 
-exports.updateBoiler = async (req, res) => {
-  const { id } = req.params
-  const { name, type, max_pressure, network_address, is_blocked } = req.body
+exports.updateBoiler = async (req, res, next) => {
+  /*
+    #swagger.tags = ['Boilers']
+    #swagger.responses[200] = { $ref: '#/components/responses/SuccessOK' }
+    #swagger.responses[400] = { $ref: '#/components/responses/BadRequest' }
+    #swagger.responses[401] = { $ref: '#/components/responses/Unauthorized' }
+    #swagger.responses[403] = { $ref: '#/components/responses/Forbidden' }
+    #swagger.responses[404] = { $ref: '#/components/responses/NotFound' }
+    #swagger.responses[429] = { $ref: '#/components/responses/TooManyRequests' }
+    #swagger.responses[500] = { $ref: '#/components/responses/InternalServerError' }
+    #swagger.responses[502] = { $ref: '#/components/responses/BadGateway' }
+    #swagger.responses[503] = { $ref: '#/components/responses/ServiceUnavailable' }
+  */
   try {
+    const { id } = req.params
+    const { name, type, max_pressure, network_address, is_blocked } = req.body
+    
     if (is_blocked !== undefined) {
        const result = await pool.query('UPDATE boilers SET is_blocked = $1 WHERE id = $2 RETURNING *', [is_blocked, id])
        return res.json(result.rows[0])
     }
-    const result = await pool.query(
-      'UPDATE boilers SET name = $1, type = $2, max_pressure = $3, network_address = $4 WHERE id = $5 RETURNING *',
-      [name, type, max_pressure, network_address, id]
-    )
+    const result = await pool.query('UPDATE boilers SET name = $1, type = $2, max_pressure = $3, network_address = $4 WHERE id = $5 RETURNING *', [name, type, max_pressure, network_address, id])
     res.json(result.rows[0])
-  } catch (err) {
-    res.status(500).json({ error: err.message })
-  }
+  } catch (err) { next(err) }
 }
 
-exports.deleteBoiler = async (req, res) => {
-  const { id } = req.params
+exports.deleteBoiler = async (req, res, next) => {
+  /*
+    #swagger.tags = ['Boilers']
+    #swagger.responses[200] = { $ref: '#/components/responses/SuccessOK' }
+    #swagger.responses[400] = { $ref: '#/components/responses/BadRequest' }
+    #swagger.responses[401] = { $ref: '#/components/responses/Unauthorized' }
+    #swagger.responses[403] = { $ref: '#/components/responses/Forbidden' }
+    #swagger.responses[404] = { $ref: '#/components/responses/NotFound' }
+    #swagger.responses[429] = { $ref: '#/components/responses/TooManyRequests' }
+    #swagger.responses[500] = { $ref: '#/components/responses/InternalServerError' }
+    #swagger.responses[502] = { $ref: '#/components/responses/BadGateway' }
+    #swagger.responses[503] = { $ref: '#/components/responses/ServiceUnavailable' }
+  */
   try {
+    const { id } = req.params
     await pool.query('UPDATE boilers SET is_deleted = TRUE WHERE id = $1', [id])
     await pool.query('DELETE FROM operator_assignments WHERE boiler_id = $1', [id])
     res.json({ success: true })
-  } catch (err) {
-    res.status(500).json({ error: err.message })
-  }
+  } catch (err) { next(err) }
 }
 
-exports.getDeletedBoilers = async (req, res) => {
+exports.getDeletedBoilers = async (req, res, next) => {
+  /*
+    #swagger.tags = ['Boilers']
+    #swagger.responses[200] = { $ref: '#/components/responses/SuccessOK' }
+    #swagger.responses[400] = { $ref: '#/components/responses/BadRequest' }
+    #swagger.responses[401] = { $ref: '#/components/responses/Unauthorized' }
+    #swagger.responses[403] = { $ref: '#/components/responses/Forbidden' }
+    #swagger.responses[404] = { $ref: '#/components/responses/NotFound' }
+    #swagger.responses[429] = { $ref: '#/components/responses/TooManyRequests' }
+    #swagger.responses[500] = { $ref: '#/components/responses/InternalServerError' }
+    #swagger.responses[502] = { $ref: '#/components/responses/BadGateway' }
+    #swagger.responses[503] = { $ref: '#/components/responses/ServiceUnavailable' }
+  */
   try {
     const result = await pool.query('SELECT * FROM boilers WHERE is_deleted = TRUE ORDER BY id ASC')
     res.json(result.rows)
-  } catch (err) {
-    res.status(500).json({ error: err.message })
-  }
+  } catch (err) { next(err) }
 }
 
-exports.restoreBoiler = async (req, res) => {
-  const { id } = req.params
+exports.restoreBoiler = async (req, res, next) => {
+  /*
+    #swagger.tags = ['Boilers']
+    #swagger.responses[200] = { $ref: '#/components/responses/SuccessOK' }
+    #swagger.responses[400] = { $ref: '#/components/responses/BadRequest' }
+    #swagger.responses[401] = { $ref: '#/components/responses/Unauthorized' }
+    #swagger.responses[403] = { $ref: '#/components/responses/Forbidden' }
+    #swagger.responses[404] = { $ref: '#/components/responses/NotFound' }
+    #swagger.responses[429] = { $ref: '#/components/responses/TooManyRequests' }
+    #swagger.responses[500] = { $ref: '#/components/responses/InternalServerError' }
+    #swagger.responses[502] = { $ref: '#/components/responses/BadGateway' }
+    #swagger.responses[503] = { $ref: '#/components/responses/ServiceUnavailable' }
+  */
   try {
+    const { id } = req.params
     const result = await pool.query('UPDATE boilers SET is_deleted = FALSE WHERE id = $1 RETURNING *', [id])
     res.json(result.rows[0])
-  } catch (err) {
-    res.status(500).json({ error: err.message })
-  }
+  } catch (err) { next(err) }
 }
 
-exports.getAssignments = async (req, res) => {
+exports.getAssignments = async (req, res, next) => {
+  /*
+    #swagger.tags = ['Assignments']
+    #swagger.responses[200] = { $ref: '#/components/responses/SuccessOK' }
+    #swagger.responses[400] = { $ref: '#/components/responses/BadRequest' }
+    #swagger.responses[401] = { $ref: '#/components/responses/Unauthorized' }
+    #swagger.responses[403] = { $ref: '#/components/responses/Forbidden' }
+    #swagger.responses[404] = { $ref: '#/components/responses/NotFound' }
+    #swagger.responses[429] = { $ref: '#/components/responses/TooManyRequests' }
+    #swagger.responses[500] = { $ref: '#/components/responses/InternalServerError' }
+    #swagger.responses[502] = { $ref: '#/components/responses/BadGateway' }
+    #swagger.responses[503] = { $ref: '#/components/responses/ServiceUnavailable' }
+  */
   try {
     const result = await pool.query('SELECT * FROM operator_assignments')
     res.json(result.rows)
-  } catch (err) {
-    res.status(500).json({ error: err.message })
-  }
+  } catch (err) { next(err) }
 }
 
-exports.assignOperator = async (req, res) => {
-  const { operator_id, boiler_id } = req.body
+exports.assignOperator = async (req, res, next) => {
+  /*
+    #swagger.tags = ['Assignments']
+    #swagger.responses[201] = { $ref: '#/components/responses/SuccessCreated' }
+    #swagger.responses[400] = { $ref: '#/components/responses/BadRequest' }
+    #swagger.responses[401] = { $ref: '#/components/responses/Unauthorized' }
+    #swagger.responses[403] = { $ref: '#/components/responses/Forbidden' }
+    #swagger.responses[404] = { $ref: '#/components/responses/NotFound' }
+    #swagger.responses[429] = { $ref: '#/components/responses/TooManyRequests' }
+    #swagger.responses[500] = { $ref: '#/components/responses/InternalServerError' }
+    #swagger.responses[502] = { $ref: '#/components/responses/BadGateway' }
+    #swagger.responses[503] = { $ref: '#/components/responses/ServiceUnavailable' }
+  */
   try {
-    const result = await pool.query(
-      'INSERT INTO operator_assignments (operator_id, boiler_id) VALUES ($1, $2) RETURNING *',
-      [operator_id, boiler_id]
-    )
+    const { operator_id, boiler_id } = req.body
+    const result = await pool.query('INSERT INTO operator_assignments (operator_id, boiler_id) VALUES ($1, $2) RETURNING *', [operator_id, boiler_id])
     res.status(201).json(result.rows[0])
-  } catch (err) {
-    res.status(500).json({ error: err.message })
-  }
+  } catch (err) { next(err) }
 }
 
-exports.removeAssignment = async (req, res) => {
-  const { id } = req.params
+exports.removeAssignment = async (req, res, next) => {
+  /*
+    #swagger.tags = ['Assignments']
+    #swagger.responses[200] = { $ref: '#/components/responses/SuccessOK' }
+    #swagger.responses[400] = { $ref: '#/components/responses/BadRequest' }
+    #swagger.responses[401] = { $ref: '#/components/responses/Unauthorized' }
+    #swagger.responses[403] = { $ref: '#/components/responses/Forbidden' }
+    #swagger.responses[404] = { $ref: '#/components/responses/NotFound' }
+    #swagger.responses[429] = { $ref: '#/components/responses/TooManyRequests' }
+    #swagger.responses[500] = { $ref: '#/components/responses/InternalServerError' }
+    #swagger.responses[502] = { $ref: '#/components/responses/BadGateway' }
+    #swagger.responses[503] = { $ref: '#/components/responses/ServiceUnavailable' }
+  */
   try {
+    const { id } = req.params
     await pool.query('DELETE FROM operator_assignments WHERE id = $1', [id])
     res.json({ success: true })
-  } catch (err) {
-    res.status(500).json({ error: err.message })
-  }
+  } catch (err) { next(err) }
 }
 
-exports.getStopRequests = async (req, res) => {
+exports.getStopRequests = async (req, res, next) => {
+  /*
+    #swagger.tags = ['Stop Requests']
+    #swagger.responses[200] = { $ref: '#/components/responses/SuccessOK' }
+    #swagger.responses[400] = { $ref: '#/components/responses/BadRequest' }
+    #swagger.responses[401] = { $ref: '#/components/responses/Unauthorized' }
+    #swagger.responses[403] = { $ref: '#/components/responses/Forbidden' }
+    #swagger.responses[404] = { $ref: '#/components/responses/NotFound' }
+    #swagger.responses[429] = { $ref: '#/components/responses/TooManyRequests' }
+    #swagger.responses[500] = { $ref: '#/components/responses/InternalServerError' }
+    #swagger.responses[502] = { $ref: '#/components/responses/BadGateway' }
+    #swagger.responses[503] = { $ref: '#/components/responses/ServiceUnavailable' }
+  */
   try {
     const result = await pool.query('SELECT * FROM stop_requests')
     res.json(result.rows)
-  } catch (err) {
-    res.status(500).json({ error: err.message })
-  }
+  } catch (err) { next(err) }
 }
 
-exports.createStopRequest = async (req, res) => {
-  const { boilerId, reason } = req.body
+exports.createStopRequest = async (req, res, next) => {
+  /*
+    #swagger.tags = ['Stop Requests']
+    #swagger.responses[201] = { $ref: '#/components/responses/SuccessCreated' }
+    #swagger.responses[400] = { $ref: '#/components/responses/BadRequest' }
+    #swagger.responses[401] = { $ref: '#/components/responses/Unauthorized' }
+    #swagger.responses[403] = { $ref: '#/components/responses/Forbidden' }
+    #swagger.responses[404] = { $ref: '#/components/responses/NotFound' }
+    #swagger.responses[429] = { $ref: '#/components/responses/TooManyRequests' }
+    #swagger.responses[500] = { $ref: '#/components/responses/InternalServerError' }
+    #swagger.responses[502] = { $ref: '#/components/responses/BadGateway' }
+    #swagger.responses[503] = { $ref: '#/components/responses/ServiceUnavailable' }
+  */
   try {
-    const result = await pool.query(
-      "INSERT INTO stop_requests (boiler_id, operator_id, reason, status) VALUES ($1, $2, $3, 'pending') RETURNING *",
-      [boilerId, req.user.id, reason]
-    )
+    const { boilerId, reason } = req.body
+    const result = await pool.query("INSERT INTO stop_requests (boiler_id, operator_id, reason, status) VALUES ($1, $2, $3, 'pending') RETURNING *", [boilerId, req.user.id, reason])
     res.status(201).json(result.rows[0])
-  } catch (err) {
-    res.status(500).json({ error: err.message })
-  }
+  } catch (err) { next(err) }
 }
 
-exports.deleteStopRequest = async (req, res) => {
-  const { id } = req.params
+exports.deleteStopRequest = async (req, res, next) => {
+  /*
+    #swagger.tags = ['Stop Requests']
+    #swagger.responses[200] = { $ref: '#/components/responses/SuccessOK' }
+    #swagger.responses[400] = { $ref: '#/components/responses/BadRequest' }
+    #swagger.responses[401] = { $ref: '#/components/responses/Unauthorized' }
+    #swagger.responses[403] = { $ref: '#/components/responses/Forbidden' }
+    #swagger.responses[404] = { $ref: '#/components/responses/NotFound' }
+    #swagger.responses[429] = { $ref: '#/components/responses/TooManyRequests' }
+    #swagger.responses[500] = { $ref: '#/components/responses/InternalServerError' }
+    #swagger.responses[502] = { $ref: '#/components/responses/BadGateway' }
+    #swagger.responses[503] = { $ref: '#/components/responses/ServiceUnavailable' }
+  */
   try {
+    const { id } = req.params
     await pool.query('DELETE FROM stop_requests WHERE id = $1', [id])
     res.json({ success: true })
-  } catch (err) {
-    res.status(500).json({ error: err.message })
-  }
+  } catch (err) { next(err) }
 }

@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer')
 const pool = require('../config/db')
+const ApiError = require('../utils/ApiError')
 
 const transporter = nodemailer.createTransport({
   host: process.env.MAIL_HOST,
@@ -8,22 +9,28 @@ const transporter = nodemailer.createTransport({
   ignoreTLS: true
 })
 
-exports.sendMessage = async (req, res) => {
-  const { recipientId, subject, body } = req.body
-  const senderId = req.user.id
-
-  if (!recipientId || !body || !subject) {
-    return res.status(400).json({ error: 'Укажите получателя, тему и текст' })
-  }
-  if (recipientId === senderId) {
-    return res.status(400).json({ error: 'Нельзя отправить письмо себе' })
-  }
-
+exports.sendMessage = async (req, res, next) => {
+  /*
+    #swagger.tags = ['Mail']
+    #swagger.responses[200] = { $ref: '#/components/responses/SuccessOK' }
+    #swagger.responses[400] = { $ref: '#/components/responses/BadRequest' }
+    #swagger.responses[401] = { $ref: '#/components/responses/Unauthorized' }
+    #swagger.responses[403] = { $ref: '#/components/responses/Forbidden' }
+    #swagger.responses[404] = { $ref: '#/components/responses/NotFound' }
+    #swagger.responses[429] = { $ref: '#/components/responses/TooManyRequests' }
+    #swagger.responses[500] = { $ref: '#/components/responses/InternalServerError' }
+    #swagger.responses[502] = { $ref: '#/components/responses/BadGateway' }
+    #swagger.responses[503] = { $ref: '#/components/responses/ServiceUnavailable' }
+  */
   try {
+    const { recipientId, subject, body } = req.body
+    const senderId = req.user.id
+
+    if (!recipientId || !body || !subject) throw ApiError.BadRequest('Укажите получателя, тему и текст')
+    if (recipientId === senderId) throw ApiError.BadRequest('Нельзя отправить письмо себе')
+
     const recipientRes = await pool.query('SELECT email FROM profiles WHERE id = $1', [recipientId])
-    if (recipientRes.rows.length === 0) {
-      return res.status(404).json({ error: 'Получатель не найден' })
-    }
+    if (recipientRes.rows.length === 0) throw ApiError.NotFound('Получатель не найден')
 
     const recipientEmail = recipientRes.rows[0].email
 
@@ -34,26 +41,30 @@ exports.sendMessage = async (req, res) => {
       text: body.trim()
     })
 
-    await pool.query(
-      'INSERT INTO logs (user_id, action, metadata) VALUES ($1, $2, $3)',
-      [senderId, 'Отправлен email', JSON.stringify({ recipientEmail, subject, ip: req.ip })]
-    )
-
+    await pool.query('INSERT INTO logs (user_id, action, metadata) VALUES ($1, $2, $3)', [senderId, 'Отправлен email', JSON.stringify({ recipientEmail, subject, ip: req.ip })])
     res.json({ success: true, message: 'Письмо отправлено' })
-  } catch (err) {
-    res.status(500).json({ error: err.message })
-  }
+  } catch (err) { next(err) }
 }
 
-exports.getInbox = async (req, res) => {
+exports.getInbox = async (req, res, next) => {
+  /*
+    #swagger.tags = ['Mail']
+    #swagger.responses[200] = { $ref: '#/components/responses/SuccessOK' }
+    #swagger.responses[400] = { $ref: '#/components/responses/BadRequest' }
+    #swagger.responses[401] = { $ref: '#/components/responses/Unauthorized' }
+    #swagger.responses[403] = { $ref: '#/components/responses/Forbidden' }
+    #swagger.responses[404] = { $ref: '#/components/responses/NotFound' }
+    #swagger.responses[429] = { $ref: '#/components/responses/TooManyRequests' }
+    #swagger.responses[500] = { $ref: '#/components/responses/InternalServerError' }
+    #swagger.responses[502] = { $ref: '#/components/responses/BadGateway' }
+    #swagger.responses[503] = { $ref: '#/components/responses/ServiceUnavailable' }
+  */
   try {
     const userEmail = req.user.email.toLowerCase()
     const mailpitUrl = process.env.MAIL_API_URL
     const response = await fetch(`${mailpitUrl}/api/v1/messages?limit=500`)
     
-    if (!response.ok) {
-      throw new Error('Ошибка связи с почтовым сервером')
-    }
+    if (!response.ok) throw ApiError.Internal('Ошибка связи с почтовым сервером')
     
     const data = await response.json()
     const messages = (data.messages || [])
@@ -72,20 +83,28 @@ exports.getInbox = async (req, res) => {
       }))
 
     res.json(messages)
-  } catch (err) {
-    res.status(500).json({ error: err.message })
-  }
+  } catch (err) { next(err) }
 }
 
-exports.getSent = async (req, res) => {
+exports.getSent = async (req, res, next) => {
+  /*
+    #swagger.tags = ['Mail']
+    #swagger.responses[200] = { $ref: '#/components/responses/SuccessOK' }
+    #swagger.responses[400] = { $ref: '#/components/responses/BadRequest' }
+    #swagger.responses[401] = { $ref: '#/components/responses/Unauthorized' }
+    #swagger.responses[403] = { $ref: '#/components/responses/Forbidden' }
+    #swagger.responses[404] = { $ref: '#/components/responses/NotFound' }
+    #swagger.responses[429] = { $ref: '#/components/responses/TooManyRequests' }
+    #swagger.responses[500] = { $ref: '#/components/responses/InternalServerError' }
+    #swagger.responses[502] = { $ref: '#/components/responses/BadGateway' }
+    #swagger.responses[503] = { $ref: '#/components/responses/ServiceUnavailable' }
+  */
   try {
     const userEmail = req.user.email.toLowerCase()
     const mailpitUrl = process.env.MAIL_API_URL
     const response = await fetch(`${mailpitUrl}/api/v1/messages?limit=500`)
     
-    if (!response.ok) {
-      throw new Error('Ошибка связи с почтовым сервером')
-    }
+    if (!response.ok) throw ApiError.Internal('Ошибка связи с почтовым сервером')
     
     const data = await response.json()
     const messages = (data.messages || [])
@@ -103,17 +122,27 @@ exports.getSent = async (req, res) => {
       }))
 
     res.json(messages)
-  } catch (err) {
-    res.status(500).json({ error: err.message })
-  }
+  } catch (err) { next(err) }
 }
 
-exports.getMessageById = async (req, res) => {
+exports.getMessageById = async (req, res, next) => {
+  /*
+    #swagger.tags = ['Mail']
+    #swagger.responses[200] = { $ref: '#/components/responses/SuccessOK' }
+    #swagger.responses[400] = { $ref: '#/components/responses/BadRequest' }
+    #swagger.responses[401] = { $ref: '#/components/responses/Unauthorized' }
+    #swagger.responses[403] = { $ref: '#/components/responses/Forbidden' }
+    #swagger.responses[404] = { $ref: '#/components/responses/NotFound' }
+    #swagger.responses[429] = { $ref: '#/components/responses/TooManyRequests' }
+    #swagger.responses[500] = { $ref: '#/components/responses/InternalServerError' }
+    #swagger.responses[502] = { $ref: '#/components/responses/BadGateway' }
+    #swagger.responses[503] = { $ref: '#/components/responses/ServiceUnavailable' }
+  */
   try {
     const mailpitUrl = process.env.MAIL_API_URL
     const response = await fetch(`${mailpitUrl}/api/v1/message/${req.params.id}`)
     
-    if (!response.ok) throw new Error('Письмо не найдено')
+    if (!response.ok) throw ApiError.NotFound('Письмо не найдено')
     
     const data = await response.json()
     res.json({
@@ -124,7 +153,5 @@ exports.getMessageById = async (req, res) => {
       body: data.Text || data.Snippet,
       date: data.Date || data.Created
     })
-  } catch (err) {
-    res.status(500).json({ error: err.message })
-  }
+  } catch (err) { next(err) }
 }
