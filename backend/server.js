@@ -27,16 +27,13 @@ app.use(express.json())
 
 if (swaggerDocument) {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
-    swaggerOptions: {
-      persistAuthorization: true
-    }
+    swaggerOptions: { persistAuthorization: true }
   }))
 }
 
 app.use('/api', apiRoutes)
 
 app.get('/health', async (req, res) => {
-  /* #swagger.tags = ['System'] */
   try {
     await pool.query('SELECT NOW()')
     res.json({ status: 'healthy', database: 'connected', timestamp: new Date() })

@@ -1,21 +1,20 @@
-const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, '.env') });
-const swaggerAutogen = require('swagger-autogen')({ openapi: '3.0.0' });
+const path = require('path')
+require('dotenv').config()
+const swaggerAutogen = require('swagger-autogen')({ openapi: '3.0.0' })
 
 const doc = {
   info: {
     title: 'SCADA API',
-    description: 'API Documentation',
     version: '1.0.0'
   },
   servers: [
     {
-      url: 'https://energy-secure-system.duckdns.org',
-      description: 'Production'
+      url: 'https://energy-secure-system.duckdns.org:8443',
+      description: 'Production (Nginx)'
     },
     {
       url: `http://localhost:${process.env.PORT || 3001}`,
-      description: 'Local'
+      description: 'Local Backend'
     }
   ],
   components: {
@@ -28,9 +27,6 @@ const doc = {
     }
   },
   security: [{ bearerAuth: [] }]
-};
+}
 
-const outputFile = './swagger-output.json';
-const endpointsFiles = ['./server.js'];
-
-swaggerAutogen(outputFile, endpointsFiles, doc);
+swaggerAutogen('./swagger-output.json', ['./server.js'], doc)
